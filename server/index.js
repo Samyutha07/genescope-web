@@ -115,6 +115,23 @@ app.get("/sequences/:id", async (req, res) => {
 });
 
 /* ============================= */
+/* Delete Sequence               */
+/* ============================= */
+
+app.delete("/sequences/:id", async (req, res) => {
+  try {
+    const sequence = await Sequence.findByIdAndDelete(req.params.id);
+    if (!sequence) {
+      return res.status(404).json({ message: "Sequence not found" });
+    }
+    res.json({ message: "Sequence deleted successfully" });
+  } catch (err) {
+    console.error("Delete error:", err);
+    res.status(500).json({ message: "Error deleting sequence" });
+  }
+});
+
+/* ============================= */
 /* BLAST Submit                  */
 /* ============================= */
 
@@ -257,6 +274,19 @@ app.get("/stats", async (req, res) => {
   } catch (err) {
     console.error("Stats error:", err);
     res.status(500).json({ message: "Error fetching stats" });
+  }
+});
+
+app.delete("/sequences/:id", async (req, res) => {
+  try {
+    const sequence = await Sequence.findByIdAndDelete(req.params.id);
+    if (!sequence) {
+      return res.status(404).json({ message: "Sequence not found" });
+    }
+    res.json({ message: "Sequence deleted successfully" });
+  } catch (err) {
+    console.error("Delete error:", err);
+    res.status(500).json({ message: "Error deleting sequence" });
   }
 });
 
